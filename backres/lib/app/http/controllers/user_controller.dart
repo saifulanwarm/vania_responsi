@@ -1,83 +1,66 @@
-import 'dart:ffi';
-import 'package:backres/app/models/user.dart';
 import 'package:vania/vania.dart';
+import 'package:backres/app/models/user.dart';
 
 class UserController extends Controller {
   Future<Response> create(Request req) async {
     req.validate({
-      'username': 'required|String', // Username yang harus diisi
-      'email': 'required|email', // Email yang harus diisi dan valid
-      'password': 'required', // Password harus diisi
+      'image_url': 'String',
     }, {
-      'username.required': 'Username tidak boleh kosong',
-      'username.string': 'Username harus berupa teks',
-      'email.required': 'Email tidak boleh kosong',
-      'email.email': 'Email tidak valid',
-      'password.required': 'Password tidak boleh kosong',
+      'image_url.required': 'image tidak boleh kosong',
+      'image_url.string': 'image harus berupa teks',
     });
 
     final dataUser = req.input();
     dataUser['created_at'] = DateTime.now().toIso8601String();
 
-    // Cek apakah username atau email sudah ada
-    final existingUser = await User().query().where('username', '=', dataUser['username']).orWhere('email', '=', dataUser['email']).first();
+    // Cek apakah username sudah ada
+    final existingUser = await User()
+        .query()
+        .where('username', '=', dataUser['username'])
+        .first();
     if (existingUser != null) {
       return Response.json({
-        "message": "Username atau email sudah ada",
+        "message": "Foto sudah digunakan",
       }, 409);
     }
 
     // Simpan data user baru
     await User().query().insert(dataUser);
 
-    return Response.json(
-      {
-        "message": "Success",
-        "data": dataUser,
-      },
-      200,
-    );
+    return Response.json({
+      "message": "Photo berhasil dibuat",
+      "data": dataUser,
+    }, 200);
   }
 
   Future<Response> show() async {
     final dataUser = await User().query().get();
     return Response.json({
-      'message': 'Success',
+      'message': 'Berhasil mengambil data',
       'data': dataUser,
     }, 200);
   }
 
-  Future<Response> update(Request req, Char id) async {
+  Future<Response> update(Request req, int id) async {
     req.validate({
-      'username': 'required|String', // Username yang harus diisi
-      'email': 'required|email', // Email yang harus diisi dan valid
-      'password': 'required', // Password harus diisi
+      'image_url': 'String',
     }, {
-      'username.required': 'Username tidak boleh kosong',
-      'username.string': 'Username harus berupa teks',
-      'email.required': 'Email tidak boleh kosong',
-      'email.email': 'Email tidak valid',
-      'password.required': 'Password tidak boleh kosong',
+      'image_url.required': 'image tidak boleh kosong',
+      'image_url.string': 'image harus berupa teks',
     });
 
     final dataUser = req.input();
     dataUser['updated_at'] = DateTime.now().toIso8601String();
 
-    final existingUser = await User()
-        .query()
-        .where('id_user', '=', id) // Pastikan menggunakan 'id_user' di sini
-        .first();
-
+    final existingUser = await User().query().where('id', '=', id).first();
     if (existingUser == null) {
       return Response.json({
         "message": "User tidak ditemukan",
       }, 404);
     }
 
-    await User()
-        .query()
-        .where('id_user', '=', id) // Pastikan menggunakan 'id_user' untuk update
-        .update(dataUser);
+    // Update data user
+    await User().query().where('id', '=', id).update(dataUser);
 
     return Response.json({
       "message": "User berhasil diperbarui",
@@ -85,9 +68,9 @@ class UserController extends Controller {
     }, 200);
   }
 
-  Future<Response> destroy(Char id) async {
+  Future<Response> destroy(int id) async {
     try {
-      final user = await User().query().where('id_user', '=', id).first();
+      final user = await User().query().where('id', '=', id).first();
 
       if (user == null) {
         return Response.json({
@@ -95,7 +78,7 @@ class UserController extends Controller {
         }, 404);
       }
 
-      await User().query().where('id_user', '=', id).delete();
+      await User().query().where('id', '=', id).delete();
       return Response.json({
         'message': 'User berhasil dihapus',
       }, 200);

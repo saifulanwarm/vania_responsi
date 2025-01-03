@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontres/screen/login.dart';
 import 'package:flutter_frontres/screen/change_key.dart';
-import 'package:flutter_frontres/widget/button_nav.dart';
+import 'package:flutter_frontres/widget/button_nav.dart'; // Pastikan path sesuai
 import 'package:flutter_frontres/service/auth.dart';
 
 class AboutPage extends StatefulWidget {
@@ -12,7 +12,7 @@ class AboutPage extends StatefulWidget {
 }
 
 class _AboutPageState extends State<AboutPage> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 3; // Pastikan indeks untuk AboutPage sesuai
   bool isLoading = true;
   String? errorMessage;
   List<Map<String, dynamic>> data = [];
@@ -217,6 +217,13 @@ class _AboutPageState extends State<AboutPage> {
       Navigator.pushNamed(context, '/home');
     } else if (index == 1) {
       Navigator.pushNamed(context, '/kategori');
+    } else if (index == 2) {
+      Navigator.pushNamed(context, '/favorite');
+    } else if (index == 3) {
+      // Tidak perlu navigasi ke AboutPage jika sudah di halaman yang sama
+      if (_selectedIndex != 3) {
+        Navigator.pushNamed(context, '/about');
+      }
     }
   }
 }

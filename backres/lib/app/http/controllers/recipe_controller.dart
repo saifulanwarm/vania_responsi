@@ -12,6 +12,7 @@ class RecipeController extends Controller {
       'deskripsi_instruksi': 'required|string', // Deskripsi instruksi harus diisi
       'maker': 'required|string', // Pembuat resep harus diisi
       'id_category': 'required|integer', // ID kategori harus diisi sebagai integer
+      'url_image': 'nullable|string', // URL gambar opsional
     }, {
       'id_resep.required': 'ID resep tidak boleh kosong',
       'id_resep.integer': 'ID resep harus berupa angka',
@@ -25,7 +26,9 @@ class RecipeController extends Controller {
       'maker.string': 'Pembuat resep harus berupa teks',
       'id_category.required': 'ID kategori tidak boleh kosong',
       'id_category.integer': 'ID kategori harus berupa angka',
+      'url_image.string': 'URL gambar harus berupa teks',
     });
+    
 
     final dataRecipe = req.input();
     dataRecipe['created_at'] = DateTime.now().toIso8601String();
@@ -80,6 +83,7 @@ class RecipeController extends Controller {
       'title': 'required|string', // Judul resep harus diisi
       'deskripsi_bahan': 'required|string', // Deskripsi bahan harus diisi
       'deskripsi_instruksi': 'required|string', // Deskripsi instruksi harus diisi
+      'url_image': 'nullable|string', // URL gambar opsional
     }, {
       'title.required': 'Judul resep tidak boleh kosong',
       'title.string': 'Judul resep harus berupa teks',
@@ -87,6 +91,7 @@ class RecipeController extends Controller {
       'deskripsi_bahan.string': 'Deskripsi bahan harus berupa teks',
       'deskripsi_instruksi.required': 'Deskripsi instruksi tidak boleh kosong',
       'deskripsi_instruksi.string': 'Deskripsi instruksi harus berupa teks',
+      'url_image.string': 'URL gambar harus berupa teks',
     });
 
     final dataRecipe = req.input();

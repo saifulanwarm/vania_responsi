@@ -10,6 +10,12 @@ class ApiRoute implements Route {
   void register() {
     Router.basePrefix('api');
 
+    // image user
+    Router.post('/tambah-photo', userController.create);
+    Router.put('/edit-photo', userController.update);
+    Router.get('/lihat-photo', userController.show);
+    Router.delete('/edit-photo', userController.destroy);
+
     // Kategori
     Router.post('/add-category', categoryController.create);
     Router.get('/daftar-category/{id_category}', categoryController.show);
@@ -18,11 +24,11 @@ class ApiRoute implements Route {
     Router.delete('/hapus-category/{id_category}', categoryController.destroy);
 
     // Resep
-    Router.post('/add-recipe', recipeController.create);
-    Router.get('/daftar-recipe/{id_resep}', recipeController.show);
-    Router.get('/list-recipe', recipeController.index);
-    Router.put('/edit-recipe/{id_resep}', recipeController.update);
-    Router.delete('/hapus-recipe/{id_resep}', recipeController.destroy);
+    Router.post('/tambah-resep', recipeController.create);
+    Router.get('/daftar-resep/{id_resep}', recipeController.show);
+    Router.get('/list-resep', recipeController.index);
+    Router.put('/edit-resep/{id_resep}', recipeController.update);
+    Router.delete('/hapus-resep/{id_resep}', recipeController.destroy);
 
     // Route untuk registrasi dan login
     Router.group(() {
@@ -36,7 +42,6 @@ class ApiRoute implements Route {
     // Route untuk user yang memerlukan autentikasi
     Router.group(() {
       Router.patch('update-password', authController.updatePassword);
-      Router.get('', userController.create);
     }, prefix: 'user', middleware: [AuthenticateMiddleware()]);
 
     // Route untuk recipe

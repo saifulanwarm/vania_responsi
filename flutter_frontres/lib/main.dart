@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontres/screen/category.dart';
+import 'package:flutter_frontres/screen/favorite.dart';
 import 'package:flutter_frontres/screen/register.dart';
 import 'package:flutter_frontres/screen/splash_screen.dart';
 import 'package:flutter_frontres/screen/home.dart';
 import 'screen/login.dart';
 import 'screen/add_category.dart';
+import 'screen/add_recipe.dart';
 import 'screen/forgot_pass.dart';
-// import 'screen/home.dart';
-// import 'screens/profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,6 +33,8 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomePage(),
         '/kategori': (context) => const KategoriPage(),
         '/add_category': (context) => const AddCategoryPage(),
+        '/favorite': (context) =>  FavoritePage(),
+        '/add_recipe': (context) =>  CreateRecipePage()
       },
     );
   }

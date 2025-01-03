@@ -4,7 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 const secureStorage = FlutterSecureStorage();
 
-const String baseUrl ='http://192.168.100.69:8000/api'; 
+const String baseUrl ='http://192.168.136.11:8000/api'; 
 // Fungsi untuk register user
 Future<void> register(String username, String email, String password, String passwordConfirmation) async {
   final url = Uri.parse('$baseUrl/auth/register'); // Endpoint untuk register

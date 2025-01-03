@@ -10,7 +10,7 @@ class CreateRecipes extends Migration {
       text('deskripsi_bahan'); // Deskripsi resep
       text('deskripsi_instruksi');
       string('maker', length: 50);
-      // string('image');
+      string('url_image', nullable: true);
       integer('id_category', length: 11);
       foreign('id_category', 'categories', 'id_category',
           constrained: true, onDelete: 'CASCADE');

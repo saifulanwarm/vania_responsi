@@ -198,12 +198,13 @@ class _KategoriPageState extends State<KategoriPage> {
     setState(() {
       _selectedIndex = index;
     });
-
     // Navigasi antar halaman sesuai index
     if (index == 0) {
-      Navigator.pushNamed(context, '/home'); // Navigasi ke HomePage
-    } else if (index == 2) {
-      Navigator.pushNamed(context, '/about'); // Navigasi ke AboutPage
-    }
+    Navigator.pushNamed(context, '/home'); // Navigasi ke HomePage
+  } else if (index == 1) {
+    Navigator.pushNamed(context, '/favorite'); // Navigasi ke AboutPage
+  } else if (index == 2) {
+    Navigator.pushNamed(context, '/about'); 
+  }
   }
 }
